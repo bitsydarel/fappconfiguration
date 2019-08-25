@@ -25,7 +25,7 @@ abstract class ApplicationConfiguration {
   List<Locale> get supportedLanguages;
 
   /// Application's localization delegate.
-  LocalizationsDelegate get localizationsDelegate;
+  List<LocalizationsDelegate> get localizationsDelegates;
 
   /// Application's route factory.
   ///

@@ -27,12 +27,9 @@ class DefaultMaterialApplication extends StatelessWidget {
           theme: value.theme,
           darkTheme: value.darkTheme,
           supportedLocales: value.supportedLanguages,
-          localizationsDelegates: [
-            value.localizationsDelegate,
-            GlobalMaterialLocalizations
-                .delegate /*Only required if using MaterialApp Widget*/,
-            GlobalWidgetsLocalizations.delegate,
-          ],
+          localizationsDelegates: value.localizationsDelegates
+            ..add(GlobalMaterialLocalizations.delegate)
+            ..add(GlobalWidgetsLocalizations.delegate),
           onGenerateRoute: value.routeFactory,
           onUnknownRoute: value.unknownRouteFactory,
         ),

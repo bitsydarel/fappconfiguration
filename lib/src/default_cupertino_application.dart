@@ -31,12 +31,9 @@ class DefaultCupertinoApplication extends StatelessWidget {
             ),
           ),
           supportedLocales: value.supportedLanguages,
-          localizationsDelegates: [
-            value.localizationsDelegate,
-            GlobalCupertinoLocalizations.delegate
-            /*Only required if using Cupertino Widget*/,
-            GlobalWidgetsLocalizations.delegate,
-          ],
+          localizationsDelegates: value.localizationsDelegates
+            ..add(GlobalCupertinoLocalizations.delegate)
+            ..add(GlobalWidgetsLocalizations.delegate),
           onGenerateRoute: value.routeFactory,
           onUnknownRoute: value.unknownRouteFactory,
         );
