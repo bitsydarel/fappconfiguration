@@ -1,0 +1,22 @@
+name: example
+description: A package that help configuring a application
+version: 1.0.0
+author: Darel Bitsy <bitsydarel@gmail.com>
+homepage: https://github.com/bitsydarel/fappconfiguration/example
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  fappconfiguration:
+    path: ../
+
+dev_dependencies:
+  flutter_code_style: ^1.6.7
+
+flutter:
+  uses-material-design: true

@@ -1,38 +1,52 @@
 import "package:fappconfiguration/src/application_configuration.dart";
+import 'package:fappconfiguration/src/fappconfiguration_application.dart';
 import "package:flutter/material.dart";
-import "package:flutter_localizations/flutter_localizations.dart"
-    show GlobalMaterialLocalizations, GlobalWidgetsLocalizations;
+import "package:flutter_localizations/flutter_localizations.dart";
 import "package:meta/meta.dart" show literal;
-import "package:provider/provider.dart" show Consumer, Provider;
+import "package:provider/provider.dart" show MultiProvider, Provider;
 
-/// Default Material Application that configure a [MaterialApp] using the
-/// [ApplicationConfiguration].
-class DefaultMaterialApplication extends StatelessWidget {
+/// Default Material Application that configure a [MaterialApp]
+/// using the properties of an [ApplicationConfiguration].
+class DefaultMaterialApplication extends FAppConfigurationApplication {
   /// Construct a [DefaultMaterialApplication] with the provided
-  /// [ApplicationConfiguration].
+  /// [initialConfiguration].
   @literal
-  const DefaultMaterialApplication(this._configuration, {Key key})
-      : assert(_configuration != null, "configuration can't be null"),
-        super(key: key);
-
-  final ApplicationConfiguration _configuration;
+  const DefaultMaterialApplication(
+    final ApplicationConfiguration initialConfiguration, {
+    Key key,
+  })  : assert(
+          initialConfiguration != null,
+          "initialConfiguration can't be null",
+        ),
+        super(initialConfiguration, key: key);
 
   @override
+  _DefaultMaterialApplicationState createState() =>
+      _DefaultMaterialApplicationState();
+}
+
+class _DefaultMaterialApplicationState
+    extends FAppConfigurationApplicationState {
+  @override
   Widget build(BuildContext context) {
-    return Provider<ApplicationConfiguration>.value(
-      value: _configuration,
-      child: Consumer<ApplicationConfiguration>(
-        builder: (context, value, _) => MaterialApp(
-          title: value.name,
-          theme: value.theme,
-          darkTheme: value.darkTheme,
-          supportedLocales: value.supportedLanguages,
-          localizationsDelegates: value.localizationsDelegates
-            ..add(GlobalMaterialLocalizations.delegate)
-            ..add(GlobalWidgetsLocalizations.delegate),
-          onGenerateRoute: value.routeFactory,
-          onUnknownRoute: value.unknownRouteFactory,
-        ),
+    return MultiProvider(
+      providers: [
+        Provider.value(value: configuration),
+        ...?configuration.dependencies,
+      ],
+      child: MaterialApp(
+        navigatorKey: configurationKey,
+        title: configuration.name,
+        theme: configuration.theme,
+        darkTheme: configuration.darkTheme,
+        supportedLocales: configuration.supportedLanguages,
+        localizationsDelegates: [
+          ...?configuration.localizationsDelegates,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        onGenerateRoute: configuration.routeFactory,
+        onUnknownRoute: configuration.unknownRouteFactory,
       ),
     );
   }

@@ -1,11 +1,11 @@
 name: fappconfiguration
 description: A package that help configuring a application
-version: 0.0.2
+version: 1.0.0
 author: Darel Bitsy <bitsydarel@gmail.com>
 homepage: https://github.com/bitsydarel/fappconfiguration
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -13,15 +13,12 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   meta: ^1.1.6
-  provider: ^3.1.0
+  provider: ^3.1.0+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_code_style:
-    git:
-      url: git://github.com/bitsydarel/flutter-code-style.git
-      ref: v1.6.2
+  flutter_code_style: ^1.6.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

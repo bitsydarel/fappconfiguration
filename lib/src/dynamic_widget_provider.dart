@@ -7,14 +7,14 @@ import "package:flutter/widgets.dart" show Widget;
 @immutable
 class DynamicWidgetRequest {
 
-  /// Construct a [DynamicWidgetRequest] with the [routeName].
+  /// Construct a [DynamicWidgetRequest] with the [identifier].
   ///
   /// [arguments] are optional.
   @literal
-  const DynamicWidgetRequest(this.routeName, {this.arguments});
+  const DynamicWidgetRequest(this.identifier, {this.arguments});
 
-  /// Unique route name to this widget.
-  final String routeName;
+  /// Unique widget identifier to this widget.
+  final String identifier;
 
   /// argument required for this widget the be provided.
   final dynamic arguments;

@@ -1,5 +1,6 @@
-import "package:fappconfiguration/src/dynamic_widget_provider.dart";
-import "package:flutter/material.dart";
+import 'package:fappconfiguration/src/dynamic_widget_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /// An Flutter application configuration.
 ///
@@ -41,4 +42,10 @@ abstract class ApplicationConfiguration {
   ///
   /// Create widget dynamically between a page based on [DynamicWidgetRequest].
   DynamicWidgetProvider get widgetProvider;
+
+  /// The dependency that the application may use when it's launched.
+  ///
+  /// This would contains a lit of [Provider] of different type that provide
+  /// dependencies.
+  List<SingleChildCloneableWidget> get dependencies;
 }
