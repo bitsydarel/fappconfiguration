@@ -1,5 +1,5 @@
 name: fappconfiguration
-description: A package that help configuring a application
+description: A flutter package that help you to configure your application dynamically
 version: 1.0.0
 author: Darel Bitsy <bitsydarel@gmail.com>
 homepage: https://github.com/bitsydarel/fappconfiguration
@@ -13,7 +13,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   meta: ^1.1.6
-  provider: ^3.1.0+1
+  provider: ^3.2.0
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,4 @@
-import 'package:fappconfiguration/fappconfiguration.dart';
+import 'package:fappconfiguration/src/application_configuration.dart';
 import 'package:flutter/widgets.dart';
 import "package:meta/meta.dart" show literal, protected, mustCallSuper;
 

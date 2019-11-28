@@ -6,7 +6,6 @@ import "package:flutter/widgets.dart" show Widget;
 /// Represent the request to dynamically provide a widget.
 @immutable
 class DynamicWidgetRequest {
-
   /// Construct a [DynamicWidgetRequest] with the [identifier].
   ///
   /// [arguments] are optional.
