@@ -2,6 +2,7 @@ import "package:fappconfiguration/src/application_configuration.dart"
     show ApplicationConfiguration;
 import 'package:fappconfiguration/src/fappconfiguration_application.dart';
 import "package:flutter/cupertino.dart";
+import 'package:flutter/material.dart';
 import "package:flutter_localizations/flutter_localizations.dart"
     show GlobalCupertinoLocalizations, GlobalWidgetsLocalizations;
 import "package:provider/provider.dart" show Provider, MultiProvider;
@@ -31,7 +32,7 @@ class _DefaultCupertinoApplicationState
     return MultiProvider(
       providers: [
         Provider.value(value: configuration),
-        ...?configuration.dependencies,
+        ...?configuration.dependencies(),
       ],
       child: createIosAppWidget(context),
     );
@@ -39,28 +40,26 @@ class _DefaultCupertinoApplicationState
 
   CupertinoApp createIosAppWidget(BuildContext context) {
     final platformBrightness = MediaQuery.platformBrightnessOf(context);
+    final themeMode = configuration.themeMode();
+    ThemeData currentTheme;
 
-    final currentTheme = platformBrightness == Brightness.light
-        ? configuration.theme
-        : configuration.darkTheme;
+    if (themeMode == ThemeMode.system) {
+      currentTheme = platformBrightness == Brightness.light
+          ? configuration.theme()
+          : configuration.darkTheme();
+    } else {
+      currentTheme = themeMode == ThemeMode.light
+          ? configuration.theme()
+          : configuration.darkTheme();
+    }
 
     return CupertinoApp(
       navigatorKey: configurationKey,
-      title: configuration.name,
-      theme: CupertinoThemeData(
-        primaryColor: currentTheme.primaryColor,
-        primaryContrastingColor: currentTheme.accentColor,
-        brightness: currentTheme.brightness,
-        textTheme: CupertinoTextThemeData(
-          brightness: currentTheme.brightness,
-          navTitleTextStyle: currentTheme.primaryTextTheme.title,
-        ),
-        scaffoldBackgroundColor: currentTheme.scaffoldBackgroundColor,
-        barBackgroundColor: currentTheme.bottomAppBarColor,
-      ),
-      supportedLocales: configuration.supportedLanguages,
+      title: configuration.name(),
+      theme: MaterialBasedCupertinoThemeData(materialTheme: currentTheme),
+      supportedLocales: configuration.supportedLanguages(),
       localizationsDelegates: [
-        ...?configuration.localizationsDelegates,
+        ...?configuration.localizationsDelegates(),
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],

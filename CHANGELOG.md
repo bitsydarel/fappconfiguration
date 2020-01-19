@@ -20,3 +20,11 @@ This allow an application configuration to provide multiple localization delegat
 
 * Added FAppConfigurationApplication class and FAppConfigurationApplicationState class 
   to allow custom implementation of application widget without loosing update the functionality.
+
+## [1.1.0] - 02/01/2020
+
+* Changed Application configuration properties to methods, for better composition.
+
+* Upgraded the provider library version to 4.0.1
+
+* Updated the example to showcase using multiple application configuration.

@@ -1,66 +1,55 @@
-import 'package:example/src/about/about_page.dart';
+import 'package:example/src/configuration/user_manager.dart';
 import 'package:example/src/login/login_page.dart';
 import 'package:fappconfiguration/fappconfiguration.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../ids.dart';
+import 'package:provider/single_child_widget.dart';
 
 /// Example default [ApplicationConfiguration].
-class DefaultApplicationConfiguration implements ApplicationConfiguration {
+class DefaultApplicationConfiguration extends ApplicationConfiguration {
   @override
-  String get id => "bitsydarel.example";
+  String id() => "bitsydarel.example";
 
   @override
-  String get name => "Example";
+  String name() => "Example";
 
   @override
-  List<LocalizationsDelegate> get localizationsDelegates => null;
+  List<LocalizationsDelegate> localizationsDelegates() => null;
 
   @override
-  List<Locale> get supportedLanguages =>
+  List<Locale> supportedLanguages() =>
       [const Locale.fromSubtags(languageCode: "en")];
 
   @override
-  ThemeData get theme => ThemeData.from(colorScheme: ColorScheme.light());
+  ThemeData theme() => ThemeData.from(colorScheme: const ColorScheme.light());
 
   @override
-  ThemeData get darkTheme => ThemeData.from(colorScheme: ColorScheme.dark());
+  ThemeData darkTheme() =>
+      ThemeData.from(colorScheme: const ColorScheme.dark());
 
   @override
-  RouteFactory get routeFactory => _defaultRoute;
+  Route<dynamic> routeFactory(RouteSettings settings) {
+    return _defaultRoute(settings);
+  }
 
   @override
-  RouteFactory get unknownRouteFactory => _defaultRoute;
+  Route<dynamic> unknownRouteFactory(RouteSettings settings) {
+    return _defaultRoute(settings);
+  }
 
   @override
-  DynamicWidgetProvider get widgetProvider => (request) {
-        if (request.identifier == incrementerFeature) {
-          return FloatingActionButton(
-            onPressed: request.arguments as void Function(),
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          );
-        }
-        throw UnimplementedError(
-          "No widget founded with the identifier ${request.identifier}",
-        );
-      };
+  Widget widgetProvider(DynamicWidgetRequest request) => null;
 
   @override
-  List<SingleChildCloneableWidget> get dependencies => null;
+  List<SingleChildWidget> dependencies() =>
+      [Provider.value(value: UserManager())];
 
-  PageRoute<Widget> _defaultRoute(final RouteSettings settings) {
+  Route<dynamic> _defaultRoute(final RouteSettings settings) {
     switch (settings.name) {
       case Navigator.defaultRouteName:
         return MaterialPageRoute<LoginPage>(
           settings: settings,
           builder: (context) => LoginPage(),
-        );
-      case "/about":
-        return MaterialPageRoute<AboutPage>(
-          settings: settings,
-          builder: (context) => AboutPage(),
         );
       default:
         throw UnimplementedError();

@@ -1,5 +1,4 @@
 import "package:meta/meta.dart" show literal, immutable;
-import "package:flutter/widgets.dart" show Widget;
 
 /// Dynamic widget request.
 ///
@@ -18,6 +17,3 @@ class DynamicWidgetRequest {
   /// argument required for this widget the be provided.
   final dynamic arguments;
 }
-
-/// Provide a widget based on [DynamicWidgetRequest].
-typedef DynamicWidgetProvider = Widget Function(DynamicWidgetRequest settings);

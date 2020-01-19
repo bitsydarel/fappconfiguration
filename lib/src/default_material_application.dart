@@ -32,16 +32,17 @@ class _DefaultMaterialApplicationState
     return MultiProvider(
       providers: [
         Provider.value(value: configuration),
-        ...?configuration.dependencies,
+        ...?configuration.dependencies(),
       ],
       child: MaterialApp(
         navigatorKey: configurationKey,
-        title: configuration.name,
-        theme: configuration.theme,
-        darkTheme: configuration.darkTheme,
-        supportedLocales: configuration.supportedLanguages,
+        title: configuration.name(),
+        theme: configuration.theme(),
+        darkTheme: configuration.darkTheme(),
+        themeMode: configuration.themeMode(),
+        supportedLocales: configuration.supportedLanguages(),
         localizationsDelegates: [
-          ...?configuration.localizationsDelegates,
+          ...?configuration.localizationsDelegates(),
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],

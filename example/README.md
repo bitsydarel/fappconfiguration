@@ -1,6 +1,6 @@
 # example
 
-A new Flutter project.
+A example project for fappconfiguration library.
 
 ## Getting Started
 

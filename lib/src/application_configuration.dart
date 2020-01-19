@@ -1,6 +1,6 @@
 import 'package:fappconfiguration/src/dynamic_widget_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 
 /// An Flutter application configuration.
 ///
@@ -11,41 +11,44 @@ abstract class ApplicationConfiguration {
   /// Refer to applicationId on android.
   ///
   /// Refer to bundle id on iOS.
-  String get id;
+  String id();
 
   /// Application name.
-  String get name;
+  String name();
 
   /// Application's theme.
-  ThemeData get theme;
+  ThemeData theme();
 
   /// Application's them when dark mode is enabled on both iOS and Android.
-  ThemeData get darkTheme;
+  ThemeData darkTheme();
+
+  /// Application's theme mode, by default's system.
+  ThemeMode themeMode() => ThemeMode.system;
 
   /// Application's supported languages.
-  List<Locale> get supportedLanguages;
+  List<Locale> supportedLanguages();
 
   /// Application's localization delegate.
-  List<LocalizationsDelegate> get localizationsDelegates;
+  List<LocalizationsDelegate> localizationsDelegates();
 
   /// Application's route factory.
   ///
   /// Create application pages based on [RouteSettings]
-  RouteFactory get routeFactory;
+  Route<dynamic> routeFactory(RouteSettings settings);
 
   /// Application's unknown route factory.
   ///
   /// Create pages that handle unknown pages based on [RouteSettings].
-  RouteFactory get unknownRouteFactory;
+  Route<dynamic> unknownRouteFactory(RouteSettings settings);
 
   /// Application's widget provider.
   ///
   /// Create widget dynamically between a page based on [DynamicWidgetRequest].
-  DynamicWidgetProvider get widgetProvider;
+  Widget widgetProvider(DynamicWidgetRequest request);
 
   /// The dependency that the application may use when it's launched.
   ///
-  /// This would contains a lit of [Provider] of different type that provide
-  /// dependencies.
-  List<SingleChildCloneableWidget> get dependencies;
+  /// This would contains a lit of [SingleChildWidget]
+  /// of different type that provide dependencies.
+  List<SingleChildWidget> dependencies();
 }

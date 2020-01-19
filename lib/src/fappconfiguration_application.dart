@@ -27,9 +27,8 @@ abstract class FAppConfigurationApplication extends StatefulWidget {
     final BuildContext context,
     final ApplicationConfiguration newConfiguration,
   ) async {
-    final state = context.ancestorStateOfType(
-      const TypeMatcher<FAppConfigurationApplicationState>(),
-    ) as FAppConfigurationApplicationState;
+    final state =
+        context.findAncestorStateOfType<FAppConfigurationApplicationState>();
 
     if (state?.mounted == true) {
       state.updateConfiguration(newConfiguration);

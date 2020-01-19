@@ -13,7 +13,7 @@ class AboutPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              CircleAvatar(
+              const CircleAvatar(
                 backgroundImage: NetworkImage(
                   "https://avatars2.githubusercontent.com/u/17922775?s=460&v=4",
                 ),

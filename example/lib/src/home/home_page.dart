@@ -14,9 +14,7 @@ class _HomePageState extends State<HomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+    setState(() => _counter++);
   }
 
   @override
@@ -25,23 +23,23 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Consumer<ApplicationConfiguration>(
           builder: (_, configuration, __) => Text(
-            "Configuration for ${configuration.name}",
+            "Configuration for ${configuration.name()}",
           ),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () async {
-            await FAppConfigurationApplication.update(
-              context,
-              DefaultApplicationConfiguration(),
-            );
-          },
         ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.help),
+            icon: const Icon(Icons.account_box),
             onPressed: () => Navigator.of(context).pushNamed("/about"),
-          )
+          ),
+          FlatButton(
+            onPressed: () async {
+              await FAppConfigurationApplication.update(
+                context,
+                DefaultApplicationConfiguration(),
+              );
+            },
+            child: const Text("Logout"),
+          ),
         ],
       ),
       body: Center(
@@ -54,13 +52,12 @@ class _HomePageState extends State<HomePage> {
               "\nLike the pourcentage of progress for example",
             ),
             const SizedBox(height: 8),
-            Consumer<double>(
-              builder: (consumerContext, percentage, __) => AnimatedContainer(
-                width: 200 * (percentage ?? .2),
-                height: 200 * (percentage ?? .2),
-                duration: Duration(milliseconds: 500),
-                color: Theme.of(consumerContext).accentColor,
-              ),
+            Consumer<ApplicationConfiguration>(
+              builder: (consumerContext, configuration, _) {
+                return configuration.widgetProvider(
+                  DynamicWidgetRequest(dependencyExample),
+                );
+              },
             ),
             const SizedBox(height: 8),
             const Text("Example of different theme of each configuration"),
